@@ -7,8 +7,8 @@ failures=0
 
 for i in {1..10000..1}
 do
-  #for c in {0..3..1}
-  while true
+  for c in {0..3..1}
+  #while true
   do
     roll=$(( (${RANDOM} * 20 / 32768) + 1 ))
     echo "Roll = $roll"
@@ -42,4 +42,6 @@ done
 
 echo "Total successes: $successes"
 echo "      failures:  $failures"   
-echo "Prob. survival: $(( $successes * 100 / 10000 ))"
+unresolved=$(( 10000 - $successes - $failures ))
+echo "Unresolved:      $unresolved"
+echo "Prob. survival: $(( ($successes + $unresolved) * 100 / 10000 ))"
