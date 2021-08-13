@@ -4,9 +4,12 @@ success=0
 failure=0
 successes=0
 failures=0
+tot_rolls=10000
 
-for i in {1..10000..1}
+i=1
+while [ $i -lt $tot_rolls ]
 do
+  i=$((i + 1))
   for c in {0..3..1}
   #while true
   do
@@ -40,10 +43,26 @@ do
   done
 done
 
-# shell arithmetic is integer, and rounds down, so we see off by one in total
 echo "Total successes: $successes"
-echo "      failures:  $failures"   
-unresolved=$(( 10000 - $successes - $failures ))
-echo "Unresolved:      $unresolved"
-echo "Prob. survival: $(( ($successes + $unresolved) * 100 / 10000 ))"
-echo "Prob. death:    $(( $failures * 100 / 10000 ))"
+echo "       failures: $failures"   
+unresolved=$(( $tot_rolls - $successes - $failures ))
+echo "     Unresolved: $unresolved"
+
+recovered=`bc <<HERE
+scale=2
+$successes * 100 / $tot_rolls
+HERE`
+
+survived=`bc <<HERE
+scale=2
+($successes + $unresolved) * 100 / $tot_rolls
+HERE`
+
+died=`bc <<HERE
+scale=2
+$failures * 100 / $tot_rolls
+HERE`
+
+echo "Recovered:       ${recovered}"
+echo "Prob. survival:  ${survived}"
+echo "Prob. death:     ${died}"
