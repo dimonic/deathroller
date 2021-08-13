@@ -5,7 +5,7 @@ failure=0
 successes=0
 failures=0
 
-for i in {0..10000..1}
+for i in {1..10000..1}
 do
   #for c in {0..3..1}
   while true
