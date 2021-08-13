@@ -40,8 +40,10 @@ do
   done
 done
 
+# shell arithmetic is integer, and rounds down, so we see off by one in total
 echo "Total successes: $successes"
 echo "      failures:  $failures"   
 unresolved=$(( 10000 - $successes - $failures ))
 echo "Unresolved:      $unresolved"
 echo "Prob. survival: $(( ($successes + $unresolved) * 100 / 10000 ))"
+echo "Prob. death:    $(( $failures * 100 / 10000 ))"
