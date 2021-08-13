@@ -42,3 +42,4 @@ done
 
 echo "Total successes: $successes"
 echo "      failures:  $failures"   
+echo "Prob. survival: $(( $successes * 100 / 10000 ))"
