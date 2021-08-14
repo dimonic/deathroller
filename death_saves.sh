@@ -10,8 +10,7 @@ i=1
 while [ $i -lt $tot_rolls ]
 do
   i=$((i + 1))
-  for c in {0..3..1}
-  #while true
+  for c in {1..4}
   do
     roll=$(( (${RANDOM} * 20 / 32768) + 1 ))
     echo "Roll = $roll"
@@ -41,6 +40,10 @@ do
       break
     fi
   done
+  if [ $c -eq 4 -a $success -ne 0 -a $failure -ne 0 ]
+  then
+    echo "Unresolved in 4 rolls"
+  fi
 done
 
 echo "Total successes: $successes"
